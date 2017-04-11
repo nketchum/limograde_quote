@@ -1,0 +1,17 @@
+<?php
+
+use Drupal\views\ViewExecutable;
+
+function limograde_quote_page_attachments(array &$attachments) {
+  if (!\Drupal::currentUser()->hasPermission('access content')) {
+    return;
+  }
+  $attachments['#attached']['library'][] = 'limograde_quote/js_cookie';
+  $attachments['#attached']['library'][] = 'limograde_quote/quote_js';
+}
+
+// function limograde_quote_views_pre_render(ViewExecutable $view) {
+//   if ($view->id() === 'vehicles') {
+//     $view->element['#attached']['library'][] = 'limograde_quote/quote_js';
+//   }
+// }

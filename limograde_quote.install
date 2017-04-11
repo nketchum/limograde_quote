@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function limograde_quote_requirements($phase) {
+  $requirements = [];
+
+  if ('runtime' == $phase) {
+    $has_js_cookie = _limograde_quote_verify_library('limograde_quote', 'js_cookie');
+    $requirements['js_cookie'] = [
+      'title' => t('JS-Cookie library'),
+      'value' => $has_js_cookie ? t('Enabled') : t('Not found'),
+    ];
+
+    if (!$has_js_cookie) {
+      $requirements['js_cookie']['severity'] = REQUIREMENT_WARNING;
+      $requirements['js_cookie']['description'] = [
+        '#prefix' => ' ',
+        '#markup' => t('LimoGrade Quote module requires js-cookie library to enable the +/- buttons. Download it at: <a href="https://github.com/js-cookie/js-cookie">https://github.com/js-cookie/js-cookie</a>'),
+      ];
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Verify that the library files exist.
+ *
+ * @param string $extension
+ *   The name of the extension that registered a library.
+ * @param string $name
+ *   The name of a registered library to retrieve.
+ *
+ * @return bool
+ *   TRUE if all files of this library exists, FALSE otherwise
+ *
+ * @see https://drupal.org/node/2231385
+ */
+function _limograde_quote_verify_library($extension, $name) {
+  /** @var Drupal\Core\Asset\LibraryDiscovery $library_discovery */
+  $library_discovery = \Drupal::service('library.discovery');
+  $library = $library_discovery->getLibraryByName($extension, $name);
+
+  $exist = TRUE;
+  if ($library['js']) {
+    foreach ($library['js'] as $js) {
+      if ($js['type'] == 'file') {
+        if (!file_exists(DRUPAL_ROOT . '/' . $js['data'])) {
+          $exist = FALSE;
+        }
+      }
+    }
+  }
+
+  if ($library['css']) {
+    foreach ($library['css'] as $css) {
+      if ($css['type'] == 'file') {
+        if (!file_exists(DRUPAL_ROOT . '/' . $css['data'])) {
+          $exist = FALSE;
+        }
+      }
+    }
+  }
+
+  if ($library['dependencies']) {
+    foreach ($library['dependencies'] as $dependency) {
+      $parts = explode('/', $dependency);
+      $exist = _limograde_quote_verify_library($parts[0], $parts[1]);
+    }
+  }
+
+  return $exist;
+}

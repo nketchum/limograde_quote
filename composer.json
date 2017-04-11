@@ -1,0 +1,14 @@
+{
+  "name": "drupal/limograde_quote",
+  "type": "drupal-module",
+  "description": "Provides quote functionality for end users.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/limograde_quote",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/limograde_quote",
+    "source": "http://cgit.drupalcode.org/limograde_quote"
+  },
+  "require": { }
+}
