@@ -11,7 +11,6 @@
     var buttons = document.getElementsByClassName('quote-switch');
     for (var i = 0; i < buttons.length; i++) {
       initButton(buttons[i], getItems('quote'));
-
     }
   }
   init();
@@ -20,9 +19,12 @@
     // Set initial button state based on cookie state.
     if (items.indexOf(button.dataset.vehicleId) != -1) {
       button.innerHTML = '-';
+      button.classList.add('quote-switch-remove');
     } else {
       button.innerHTML = '+';
+      button.classList.add('quote-switch-add');
     }
+
     // Click will toggle button state and cookie state.
     button.addEventListener('click', function(e) {
       // Get button element.
@@ -35,6 +37,9 @@
       toggleButton(button);
       // Toggle items.
       toggleItem(button.dataset.vehicleId, items);
+      // Toggle button class.
+      button.classList.toggle('quote-switch-add');
+      button.classList.toggle('quote-switch-remove');
       // Cookies.remove('quote');
     });
     return button;
