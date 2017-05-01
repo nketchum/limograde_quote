@@ -1,0 +1,5 @@
+entity.quote.add_form:
+  route_name: entity.quote.add_form
+  title: 'Add quote'
+  appears_on:
+    - entity.quote.collection

@@ -1,0 +1,5 @@
+quote.admin.structure.settings:
+  title: Quotes
+  description: 'Configure quotes'
+  route_name: quote.settings
+  parent: system.admin_structure

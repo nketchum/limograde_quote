@@ -1,0 +1,6 @@
+limograde_quote.quote_form:
+  path: 'quote/request'
+  defaults:
+    _form: '\Drupal\limograde_quote\Form\QuoteFormPage'
+  requirements:
+    _permission: 'access content'
