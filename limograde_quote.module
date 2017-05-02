@@ -6,17 +6,6 @@ use Drupal\mollom\Entity\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements hook_page_attachments().
- */
-function limograde_quote_page_attachments(array &$attachments) {
-  if (!\Drupal::currentUser()->hasPermission('access content')) {
-    return;
-  }
-  $attachments['#attached']['library'][] = 'limograde_quote/js_cookie';
-  $attachments['#attached']['library'][] = 'limograde_quote/quote_js';
-}
-
-/**
  * Implements hook_mail().
  */
 function limograde_quote_mail($key, &$message, $params) {

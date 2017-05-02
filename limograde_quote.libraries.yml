@@ -1,9 +1,0 @@
-quote_js:
-  version: VERSION
-  js:
-    quote.js: {}
-
-js_cookie:
-  version: VERSION
-  js:
-    /libraries/js-cookie/src/js.cookie.js: {}
